@@ -8,6 +8,8 @@ services:
       - PORT=3000
       - SECRET=${JWT_SECRET:-secret}
     restart: unless-stopped
+    labels:
+      - "traefik.http.services.node-api.loadbalancer.server.port=3000"
 
   go-api:
     build: ./go-api
@@ -19,3 +21,5 @@ services:
     depends_on:
       - node-api
     restart: unless-stopped
+    labels:
+      - "traefik.http.services.go-api.loadbalancer.server.port=8080"
