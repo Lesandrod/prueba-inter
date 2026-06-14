@@ -1,0 +1,19 @@
+# Node
+node-api/node_modules/
+node-api/.env
+node-api/.DS_Store
+
+# Go
+go-api/bin/
+go-api/*.exe
+go-api/*.out
+go-api/.env
+
+# General
+.DS_Store
+*.log
+*.tmp
+*.swp
+
+# Docker
+.env
