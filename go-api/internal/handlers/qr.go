@@ -60,6 +60,27 @@ func QRHandler(c *fiber.Ctx) error {
 	})
 }
 
+func QRDecomposeHandler(c *fiber.Ctx) error {
+	var req QRRequest
+	if err := c.BodyParser(&req); err != nil {
+		return c.Status(400).JSON(fiber.Map{
+			"error": "body invalido",
+		})
+	}
+
+	result, err := services.FactorizeQR(req.Matrix)
+	if err != nil {
+		return c.Status(400).JSON(fiber.Map{
+			"error": err.Error(),
+		})
+	}
+
+	return c.JSON(fiber.Map{
+		"q": result.Q,
+		"r": result.R,
+	})
+}
+
 func fetchStatsFromNode(q [][]float64, r [][]float64, token string) (StatsResponse, error) {
 	payload := StatsRequest{Q: q, R: r}
 	body, _ := json.Marshal(payload)

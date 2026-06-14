@@ -11,4 +11,6 @@ func Register(app *fiber.App) {
 
 	app.Post("/qr", auth.JWTMiddleware(), handlers.QRHandler)
 
+	app.Post("/qr/decompose", auth.JWTMiddleware(), handlers.QRDecomposeHandler)
+
 }
