@@ -3,7 +3,7 @@ services:
   node-api:
     build: ./node-api
     ports:
-      - "3000:3000"
+      - "3001:3000"
     environment:
       - PORT=3000
       - SECRET=${JWT_SECRET:-secret}
@@ -14,7 +14,7 @@ services:
   go-api:
     build: ./go-api
     ports:
-      - "8080:8080"
+      - "9000:8080"
     environment:
       - NODE_STATS_URL=http://node-api:3000/stats
       - JWT_SECRET=${JWT_SECRET:-secret}
