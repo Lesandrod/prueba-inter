@@ -1,8 +1,9 @@
 const jwt = require("jsonwebtoken");
 const { computeStats } = require("../funtions/stats");
 
-const SECRET = "secret";
+const SECRET = process.env.SECRET || "secret";
 
+// middleware que verifica el token JWT en cada request protegido
 function auth(req, res, next) {
   const token = req.headers.authorization?.split(" ")[1];
 
@@ -23,6 +24,7 @@ function auth(req, res, next) {
 }
 
 module.exports = function (app) {
+  // genera un token JWT con las credenciales del usuario
   app.post("/login", (req, res) => {
     const { username, password } = req.body;
 
@@ -37,6 +39,7 @@ module.exports = function (app) {
     res.json({ token });
   });
 
+  // recibe Q y R de la API de Go y devuelve estadísticas
   app.post("/stats", auth, (req, res) => {
     try {
       const stats = computeStats(req.body);

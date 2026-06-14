@@ -8,6 +8,7 @@ import (
 	jwt "github.com/golang-jwt/jwt/v5"
 )
 
+// JWTMiddleware valida el token en el header Authorization antes de cada request
 func JWTMiddleware() fiber.Handler {
 	return func(c *fiber.Ctx) error {
 

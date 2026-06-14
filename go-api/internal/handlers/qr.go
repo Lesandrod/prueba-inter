@@ -27,6 +27,7 @@ type StatsResponse struct {
 	HasDiagonalMatrix bool    `json:"hasDiagonalMatrix"`
 }
 
+// QRHandler factoriza la matriz y consulta las estadísticas a la API de Node
 func QRHandler(c *fiber.Ctx) error {
 
 	var req QRRequest
@@ -60,6 +61,7 @@ func QRHandler(c *fiber.Ctx) error {
 	})
 }
 
+// QRDecomposeHandler solo devuelve Q y R sin llamar a Node
 func QRDecomposeHandler(c *fiber.Ctx) error {
 	var req QRRequest
 	if err := c.BodyParser(&req); err != nil {
@@ -81,6 +83,7 @@ func QRDecomposeHandler(c *fiber.Ctx) error {
 	})
 }
 
+// fetchStatsFromNode envía Q y R a la API de Node y devuelve las estadísticas
 func fetchStatsFromNode(q [][]float64, r [][]float64, token string) (StatsResponse, error) {
 	payload := StatsRequest{Q: q, R: r}
 	body, _ := json.Marshal(payload)

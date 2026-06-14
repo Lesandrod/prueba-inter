@@ -1,3 +1,4 @@
+// verifica que todas las filas tengan el mismo número de columnas
 function isRectangular(matrix) {
   if (!Array.isArray(matrix) || matrix.length === 0) return false;
 
@@ -6,6 +7,7 @@ function isRectangular(matrix) {
   return matrix.every((row) => row.length === cols);
 }
 
+// verifica si una matriz es diagonal (solo tiene valores fuera de la diagonal si son 0)
 function isDiagonal(matrix) {
   if (matrix.length !== matrix[0].length) return false;
 
@@ -20,6 +22,7 @@ function isDiagonal(matrix) {
   return true;
 }
 
+// calcula estadísticas sobre todos los valores de Q y R juntos
 function computeStats({ q, r }) {
   const values = [...q.flat(), ...r.flat()];
 

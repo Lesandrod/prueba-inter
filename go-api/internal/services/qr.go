@@ -10,6 +10,7 @@ type QRResult struct {
 	R [][]float64
 }
 
+// FactorizeQR descompone una matriz en Q y R usando Gram-Schmidt
 func FactorizeQR(matrix [][]float64) (QRResult, error) {
 
 	if len(matrix) == 0 || len(matrix[0]) == 0 {
@@ -39,11 +40,13 @@ func FactorizeQR(matrix [][]float64) (QRResult, error) {
 	}
 
 	for j := 0; j < k; j++ {
+		// copia la columna j de la matriz original
 		v := make([]float64, rows)
 		for i := 0; i < rows; i++ {
 			v[i] = matrix[i][j]
 		}
 
+		// resta la proyección sobre los vectores anteriores
 		for i := 0; i < j; i++ {
 			var dot float64
 			for t := 0; t < rows; t++ {
@@ -55,6 +58,7 @@ func FactorizeQR(matrix [][]float64) (QRResult, error) {
 			}
 		}
 
+		// normaliza el vector para obtener la columna de Q
 		var norm float64
 		for _, val := range v {
 			norm += val * val
@@ -69,6 +73,7 @@ func FactorizeQR(matrix [][]float64) (QRResult, error) {
 			q[t][j] = v[t] / norm
 		}
 
+		// calcula el resto de la fila j en R
 		for col := j + 1; col < cols; col++ {
 			var dot float64
 			for t := 0; t < rows; t++ {
